@@ -25,13 +25,14 @@ pipeline {
                 echo 'Running tests...'
                 sh '''
                 cd myapp
-                # Check if virtual environment exists, if so use it
-                if [ -d "venv" ]; then
+                # Check if virtual environment activation script exists
+                if [ -f "venv/bin/activate" ]; then
+                    echo "Using virtual environment"
                     . venv/bin/activate
                     python hello.py
                     python hello.py --name=Brad
                 else
-                    # Use system python if venv wasn't created
+                    echo "Using system python"
                     python3 hello.py
                     python3 hello.py --name=Brad
                 fi
